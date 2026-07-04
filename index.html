@@ -300,9 +300,19 @@ function initDB(){
 
 // Sahifa yuklanganda Firebase dan ma'lumot olish
 window.addEventListener('load',async()=>{
-  await load();
-  // LP ni ko'rsatish
+  // Avval LP ni ko'rsatamiz
   document.getElementById('LP').style.display='flex';
+  // Firebase dan yuklaymiz
+  await load();
+  // Session tekshirish
+  const sess=sessionStorage.getItem('na_session');
+  if(sess){
+    try{
+      const u=JSON.parse(sess);
+      const found=DB.users.find(x=>x.id===u.id&&x.login===u.login&&x.password===u.password);
+      if(found){CU=found;document.getElementById('LP').style.display='none';document.getElementById('APP').style.display='block';refreshSB();nav('dash');}
+    }catch(e){}
+  }
 });
 const gU=id=>DB.users.find(x=>x.id===id);
 const gT=id=>DB.teachers.find(x=>x.id===id);
@@ -355,11 +365,11 @@ function login(){
   const u=DB.users.find(x=>x.login===l&&x.password===p);
   if(!u){er.textContent='Login yoki parol noto\'g\'ri';er.style.display='block';return}
   if(u.role!==LR){er.textContent="Rol mos emas";er.style.display='block';return}
-  CU=u;document.getElementById('LP').style.display='none';document.getElementById('APP').style.display='block';
+  CU=u;sessionStorage.setItem('na_session',JSON.stringify({id:u.id,login:u.login,password:u.password}));document.getElementById('LP').style.display='none';document.getElementById('APP').style.display='block';
   refreshSB();nav('dash');
 }
 function logout(){
-  CU=null;document.getElementById('APP').style.display='none';document.getElementById('LP').style.display='flex';
+  CU=null;sessionStorage.removeItem('na_session');document.getElementById('APP').style.display='none';document.getElementById('LP').style.display='flex';
   document.getElementById('lin').value='';document.getElementById('pin').value='';
   document.getElementById('LE').style.display='none';
 }
