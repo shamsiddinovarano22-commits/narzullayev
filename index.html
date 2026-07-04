@@ -383,12 +383,10 @@ function nav(pg){
   const ru=LANG==='ru';
   const titles={dash:ru?'Главная':'Bosh sahifa',teachers:ru?'Учителя':'O\'qituvchilar',students:ru?'Ученики':'O\'quvchilar',enrollments:ru?'Список предметов':'Fanlar ro\'yxati',pays:ru?'Оплаты':'To\'lovlar',reports:ru?'Отчёты':'Hisobotlar',mystud:ru?'Мои ученики':'O\'quvchilarim',att:ru?'Посещаемость':'Davomat',tests:ru?'Тесты':'Testlar',sett:ru?'Настройки':'Sozlamalar'};
   document.getElementById('ptitle').textContent=titles[pg]||pg;
-  set('<div class="EP"><span class="EI">⏳</span></div>');
-  setTimeout(()=>{
-    if(CU.role==='admin'){if(pg==='dash')aDash();else if(pg==='teachers')aTch();else if(pg==='students')aStu();else if(pg==='enrollments')aEnr();else if(pg==='pays')aPay(CM);else if(pg==='reports')aRep();else pSett();}
-    else if(CU.role==='teacher'){if(pg==='dash')tDash();else if(pg==='mystud')tStu();else if(pg==='att')tAtt();else if(pg==='tests')tTst();else if(pg==='pays')tPay(CM);else pSett();}
-    else{if(pg==='dash')sDash();else if(pg==='att')sAtt();else if(pg==='tests')sTst();else if(pg==='pays')sPay();else pSett();}
-  },40);
+  
+  if(CU.role==='admin'){if(pg==='dash')aDash();else if(pg==='teachers')aTch();else if(pg==='students')aStu();else if(pg==='enrollments')aEnr();else if(pg==='pays')aPay(CM);else if(pg==='reports')aRep();else pSett();}
+  else if(CU.role==='teacher'){if(pg==='dash')tDash();else if(pg==='mystud')tStu();else if(pg==='att')tAtt();else if(pg==='tests')tTst();else if(pg==='pays')tPay(CM);else pSett();}
+  else{if(pg==='dash')sDash();else if(pg==='att')sAtt();else if(pg==='tests')sTst();else if(pg==='pays')sPay();else pSett();}
 }
 const set=h=>document.getElementById('CT').innerHTML=h;
 const oM=h=>{document.getElementById('MB').innerHTML=h;document.getElementById('M').classList.add('on')};
