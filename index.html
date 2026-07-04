@@ -388,6 +388,9 @@ function refreshSB(){
   document.getElementById('sbnav').innerHTML=navs[CU.role].map(([id,lb])=>
     `<div class="NB${id===CN?' on':''}" id="n-${id}" onclick="nav('${id}')">${icons[id]} ${lb}</div>`).join('');
 }
+const set=h=>document.getElementById('CT').innerHTML=h;
+const oM=h=>{document.getElementById('MB').innerHTML=h;document.getElementById('M').classList.add('on')};
+const cM=()=>document.getElementById('M').classList.remove('on');
 function nav(pg){
   CN=pg;document.querySelectorAll('.NB').forEach(e=>e.classList.toggle('on',e.id==='n-'+pg));if(window.innerWidth<=600){document.querySelector('.SB').classList.remove('open');document.getElementById('overlay').classList.remove('on');}
   const ru=LANG==='ru';
@@ -398,9 +401,6 @@ function nav(pg){
   else if(CU.role==='teacher'){if(pg==='dash')tDash();else if(pg==='mystud')tStu();else if(pg==='att')tAtt();else if(pg==='tests')tTst();else if(pg==='pays')tPay(CM);else pSett();}
   else{if(pg==='dash')sDash();else if(pg==='att')sAtt();else if(pg==='tests')sTst();else if(pg==='pays')sPay();else pSett();}
 }
-const set=h=>document.getElementById('CT').innerHTML=h;
-const oM=h=>{document.getElementById('MB').innerHTML=h;document.getElementById('M').classList.add('on')};
-const cM=()=>document.getElementById('M').classList.remove('on');
 function toast(msg,type){const el=document.createElement('div');el.className='TST'+(type?' '+type:'');el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),3000);}
 
 function pSett(){
